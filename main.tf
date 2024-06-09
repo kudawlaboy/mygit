@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rgs" {
   name     = "rg1"
-  location = "south india"
+  location = "eastus"
 }
 
 resource "azurerm_resource_group" "rgnew" {
