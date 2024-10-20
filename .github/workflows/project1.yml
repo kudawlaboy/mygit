@@ -43,8 +43,8 @@
   - stage: Update
     displayName: Update 
     jobs:
-    - job: terraform apply
-      displayName: terraform apply
+    - job: terraform-apply
+      displayName: terraform-apply
       steps:
       - task: 
       - name: terraform-apply
@@ -55,24 +55,24 @@
     # Path to the terraform configuration
         path: 'dev/modules'
     # Name of the terraform workspace
-        workspace: # optional, default is default
+        workspace: default
     # List of backend config values to set, one per line
-        backend_config: # optional, default is 
+        backend_config: default 
     # Path to a backend config file
-        backend_config_file: # optional, default is 
+        backend_config_file: default 
     # Variable definitions
         variables: # optional
     # Comma separated list of vars to set, e.g. 'foo=bar'
-        var: # optional, default is 
+        var: default 
     # List of var file paths, one per line
-        var_file: # optional, default is 
+        var_file: default 
     # Limit the number of concurrent operations
-        parallelism: # optional, default is 0
+        parallelism: 0
     # A friendly name for this plan
-        label: # optional, default is 
+        label: default
     # Automatically approve and apply plan
-        auto_approve: # optional, default is false
+        auto_approve: true
     # List of resources to target for the apply, one per line
-        target: # optional, default is 
+        target: default 
     # List of resources to replace if an update is required, one per line
-       replace: # optional, default is 
+         replace: default
