@@ -43,8 +43,8 @@
  - stage: Update
    displayName: Update 
    jobs:
-   - job: Update
-     displayName: Update
+   - job: terraform apply
+     displayName: terraform apply
      steps:
      - task: 
      - name: terraform-apply
