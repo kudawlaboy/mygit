@@ -1,79 +1,78 @@
- name: CI
- trigger:
- - master
- - thondu
- pool: 
-  name:'default'
+  name: CI
+  trigger:
+  - master
+  - thondu
+  pool: 
+   name:'default'
 
- stages:
- - stage: Build
-   displayName: Build 
-   jobs:
-   -  job: terraform installer
-      displayName: Build
-      steps:
-      - task: 
-      - name: Terraform installer
+  stages:
+  - stage: Build
+    displayName: Build 
+    jobs:
+    -  job: terraform installer
+       displayName: Build
+       steps:
+       - task: 
+       - name: Terraform installer
   # You may pin to the exact commit or the version.
   # uses: autero1/action-terraform@43105c5ac1431a67287f012739dbbe6a163d6d95
-      uses: autero1/action-terraform@v3.0.1
-      with:
-    # Terraform version to install
-      terraform-version: # optional
+       uses: autero1/action-terraform@v3.0.1
+       with:
+     # Terraform version to install
+       terraform-version: # optional
     # File containing the Terraform version to install.  Examples: .terraform-version
-      terraform-version-file: # optional
+       terraform-version-file: # optional
           
           
       
- - stage: Push
-   displayName: Push 
-   jobs:
-   - job: terraform initplan
-     displayName: Push
-     steps:
-     - task:           
-     - name: Terraform init/plan
+  - stage: Push
+    displayName: Push 
+    jobs:
+    - job: terraform initplan
+      displayName: Push
+      steps:
+      - task:           
+      - name: Terraform init/plan
   # You may pin to the exact commit or the version.
   # uses: comu2e/tfnotify-composite-action@d70aade4cc8468bc8a46f1af1c2263c9d81a0dee
-   uses: comu2e/tfnotify-composite-action@1.0.4
-   with:
+    uses: comu2e/tfnotify-composite-action@1.0.4
+    with:
     # Setup terraform
-    name: init-plan
+     name: init-plan
           
- - stage: Update
-   displayName: Update 
-   jobs:
-   - job: terraform apply
-     displayName: terraform apply
-     steps:
-     - task: 
-     - name: terraform-apply
+  - stage: Update
+    displayName: Update 
+    jobs:
+    - job: terraform apply
+      displayName: terraform apply
+      steps:
+      - task: 
+      - name: terraform-apply
   # You may pin to the exact commit or the version.
   # uses: dflook/terraform-apply@8903ce28e2bc45fb7e2d6d05b575c79ae5389923
-       uses: dflook/terraform-apply@v1.29.1
-       with:
+        uses: dflook/terraform-apply@v1.29.1
+        with:
     # Path to the terraform configuration
-       path: 'dev/modules'
+        path: 'dev/modules'
     # Name of the terraform workspace
-       workspace: # optional, default is default
+        workspace: # optional, default is default
     # List of backend config values to set, one per line
-       backend_config: # optional, default is 
+        backend_config: # optional, default is 
     # Path to a backend config file
-       backend_config_file: # optional, default is 
+        backend_config_file: # optional, default is 
     # Variable definitions
-       variables: # optional
+        variables: # optional
     # Comma separated list of vars to set, e.g. 'foo=bar'
-       var: # optional, default is 
+        var: # optional, default is 
     # List of var file paths, one per line
-       var_file: # optional, default is 
+        var_file: # optional, default is 
     # Limit the number of concurrent operations
-       parallelism: # optional, default is 0
+        parallelism: # optional, default is 0
     # A friendly name for this plan
-       label: # optional, default is 
+        label: # optional, default is 
     # Automatically approve and apply plan
-       auto_approve: # optional, default is false
+        auto_approve: # optional, default is false
     # List of resources to target for the apply, one per line
-       target: # optional, default is 
+        target: # optional, default is 
     # List of resources to replace if an update is required, one per line
-      replace: # optional, default is 
-          
+       replace: # optional, default is 
