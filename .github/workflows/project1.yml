@@ -1,6 +1,7 @@
  name: CI
  trigger:
  - master
+ - thondu
  pool: 
   name:'default'
 
