@@ -47,32 +47,32 @@
       displayName: terraform-apply
       steps:
       - task:  
-      - name: terraform-apply
+                 - name: terraform-apply
   # You may pin to the exact commit or the version.
   # uses: dflook/terraform-apply@8903ce28e2bc45fb7e2d6d05b575c79ae5389923
-        uses: dflook/terraform-apply@v1.29.1
-        with:
+      uses: dflook/terraform-apply@v1.29.1
+      with:
     # Path to the terraform configuration
-        path: 'dev/modules'
+      path: 'dev/modules'
     # Name of the terraform workspace
-        workspace: default
+      workspace: default
     # List of backend config values to set, one per line
-        backend_config: default 
+      backend_config: default 
     # Path to a backend config file
-        backend_config_file: default 
+      backend_config_file: default 
     # Variable definitions
-        variables: # optional
+      variables: # optional
     # Comma separated list of vars to set, e.g. 'foo=bar'
-        var: default 
+      var: default 
     # List of var file paths, one per line
-        var_file: default 
+      var_file: default 
     # Limit the number of concurrent operations
-        parallelism: 0
+      parallelism: 0
     # A friendly name for this plan
-        label: default
+      label: default
     # Automatically approve and apply plan
-        auto_approve: true
+      auto_approve: true
     # List of resources to target for the apply, one per line
-        target: default 
+      target: default 
     # List of resources to replace if an update is required, one per line
-         replace: default
+       replace: default
