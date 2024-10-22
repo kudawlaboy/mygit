@@ -3,7 +3,8 @@ name: Terraform Apply Workflow
 on:
   push:
     branches:
-      - main   # Trigger the workflow on push to the main branch
+      - master 
+      - thondu   # Trigger the workflow on push to the main branch
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
