@@ -1,78 +1,44 @@
- name: CI
- trigger:
- - master
- pool: 
-  name:'default'
+name: Terraform Apply Workflow
 
- stages:
- - stage: Build
-   displayName: Build 
-   jobs:
-   -  job: terraform installer
-      displayName: Build
-      steps:
-      - task: 
-      - name: Terraform installer
-  # You may pin to the exact commit or the version.
-  # uses: autero1/action-terraform@43105c5ac1431a67287f012739dbbe6a163d6d95
-      uses: autero1/action-terraform@v3.0.1
+on:
+  push:
+    branches:
+      - master 
+      - thondu   # Trigger the workflow on push to the main branch
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  terraform:  # Job name
+    runs-on: ubuntu-latest  # Runner environment
+
+    steps:  # Steps for the job
+    # Step 1: Checkout code
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Step 2: Setup Terraform
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
       with:
-    # Terraform version to install
-      terraform-version: # optional
-    # File containing the Terraform version to install.  Examples: .terraform-version
-      terraform-version-file: # optional
-          
-          
+        terraform_version: 1.5.0   # Specify your desired Terraform version
+
+    # Step 3: Initialize Terraform
+    - name: Terraform Init
+      run: terraform init
+
+    # Step 4: Select or create workspace
+    - name: Select Terraform Workspace
+      run: terraform workspace select my-workspace || terraform workspace new my-workspace
+
+    # Step 5: Run Terraform Plan
+    - name: Terraform Plan
+      run: terraform plan
+
+    # Step 6: Run Terraform Apply
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
       
- - stage: Push
-   displayName: Push 
-   jobs:
-   - job: terraform initplan
-     displayName: Push
-     steps:
-     - task:           
-     - name: Terraform init/plan
-  # You may pin to the exact commit or the version.
-  # uses: comu2e/tfnotify-composite-action@d70aade4cc8468bc8a46f1af1c2263c9d81a0dee
-   uses: comu2e/tfnotify-composite-action@1.0.4
-   with:
-    # Setup terraform
-    name: # optional
-          
- - stage: Update
-   displayName: Update 
-   jobs:
-   - job: Update
-     displayName: Update
-     steps:
-     - task: 
-     - name: terraform-apply
-  # You may pin to the exact commit or the version.
-  # uses: dflook/terraform-apply@8903ce28e2bc45fb7e2d6d05b575c79ae5389923
-     uses: dflook/terraform-apply@v1.29.1
-     with:
-    # Path to the terraform configuration
-     path: 'dev/modules'
-    # Name of the terraform workspace
-     workspace: # optional, default is default
-    # List of backend config values to set, one per line
-     backend_config: # optional, default is 
-    # Path to a backend config file
-     backend_config_file: # optional, default is 
-    # Variable definitions
-     variables: # optional
-    # Comma separated list of vars to set, e.g. 'foo=bar'
-     var: # optional, default is 
-    # List of var file paths, one per line
-     var_file: # optional, default is 
-    # Limit the number of concurrent operations
-     parallelism: # optional, default is 0
-    # A friendly name for this plan
-     label: # optional, default is 
-    # Automatically approve and apply plan
-     auto_approve: # optional, default is false
-    # List of resources to target for the apply, one per line
-     target: # optional, default is 
-    # List of resources to replace if an update is required, one per line
-    replace: # optional, default is 
-          
