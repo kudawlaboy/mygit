@@ -1,25 +1,25 @@
-  name: CI
-  trigger:
-  - master
-  - thondu
-  pool: 
-   name:'default'
+name: CI
+trigger:
+- master
+- thondu
+pool: 
+  name:'default'
 
-  stages:
-  - stage: Build
-    displayName: Build 
-    jobs:
-    -  job: terraform installer
-       displayName: Build
-       steps:
-       - task: 
-       - name: Terraform installer
+stages:
+- stage: Build
+  displayName: Build 
+  jobs:
+  -  job: terraform installer
+     displayName: Build
+     steps:
+     - task: 
+     - name: Terraform installer
   # You may pin to the exact commit or the version.
   # uses: autero1/action-terraform@43105c5ac1431a67287f012739dbbe6a163d6d95
        uses: autero1/action-terraform@v3.0.1
-       with:
+        with:
      # Terraform version to install
-       terraform-version: # optional
+        terraform-version: 3.104.4
     # File containing the Terraform version to install.  Examples: .terraform-version
        terraform-version-file: # optional
           
@@ -75,4 +75,4 @@
     # List of resources to target for the apply, one per line
       target: default 
     # List of resources to replace if an update is required, one per line
-       replace: default
+      replace: default
